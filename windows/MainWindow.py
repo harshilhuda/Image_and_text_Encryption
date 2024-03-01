@@ -9,13 +9,14 @@ class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
 
-        #Creating stack for other windows
-        self.stacked_widget = QStackedWidget()
+        self.isLoggedIn = False
+        self.loggedInUser = None
         
+        self.stacked_widget = QStackedWidget()
         self.welcome_page = WelcomePage(self)
         self.register_page = RegisterPage(self)
         self.login_page = LoginPage(self)
-        self.home_page = HomePage(self)
+        self.home_page = HomePage("harshil", self)
 
         screen = QDesktopWidget().screenGeometry()
         center_point = screen.center()
@@ -40,8 +41,6 @@ class MainWindow(QWidget):
         self.setLayout(self.layout)
 
         self.setWindowIcon(QIcon("./images/favicon.ico"))
-
-        self.isLoggedIn = False
 
     def go_to_register_page(self):
         self.stacked_widget.setCurrentWidget(self.register_page)

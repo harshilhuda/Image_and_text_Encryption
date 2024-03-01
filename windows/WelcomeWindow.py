@@ -12,29 +12,6 @@ class WelcomePage(QWidget):
         self.login_button = QPushButton("Login")
         self.register_button = QPushButton("Register")
 
-        self.login_button.setStyleSheet("""
-            QPushButton {
-                background-color: #000000; /* Green */
-                border: none;
-                color: white;
-                padding: 15px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                font: bold;
-                margin: 4px 2px;
-                cursor: pointer;
-                border-radius: 10px;
-            }
-            QPushButton:hover {
-                background-color: #45a049; /* Darker Green */
-            }
-            QPushButton:pressed {
-                background-color: #4CAF50; /* Green */
-            }
-        """)
-
         self.register_button.setStyleSheet("""
             QPushButton {
                 background-color: #4CAF50; /* Green */

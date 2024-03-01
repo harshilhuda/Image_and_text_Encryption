@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QLabel, QLineEdit, QVBoxLayout, QPushButton, QWidget, QMessageBox
+from PyQt5.QtWidgets import QLabel, QLineEdit, QVBoxLayout, QPushButton, QWidget, QMessageBox, QErrorMessage
 from modules.auth import login
 
 class RegisterPage(QWidget):
@@ -23,11 +23,20 @@ class RegisterPage(QWidget):
         self.register_button.clicked.connect(self.register)
         self.back_button.clicked.connect(parent.go_to_welcome_page)
 
+        self.parentClass = parent
         self.setLayout(self.layout)
 
     def register(self):
         username = self.username_input.text()
         password = self.password_input.text()
         # Here you would implement your registration logic
-        print(login.register(username, password))
-        QMessageBox.information(self, "Registration", f"Registered with\nUsername: {username}\nPassword: {password}")
+        result = login.register(username, password)
+        print(result)
+        if (result == "Success"):
+            self.parentClass.isLoggedIn = True
+            self.parentClass.loggedInUser = username
+            QMessageBox.information(self, "Registration", f"Registered with\nUsername: {username}\nPassword: {password}")
+            #self.parentClass.go_to_home_page()
+        else:
+            QMessageBox.critical(None, "Error", f"Error encountered: {result}")
+        

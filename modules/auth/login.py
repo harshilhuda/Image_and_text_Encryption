@@ -19,11 +19,11 @@ def login(username, password):
     query.prepare("SELECT password FROM users where username=(?)")
     query.bindValue(0, username)
     if not query.exec_():
-        return "Username not found"
+        return "Invalid"
     if query.next():
         if not passwordHasher.verify(query.value(0), password):
             return "Invalid Password"
         else:
             return "Success"
-    return "Invalid"
+    return "No username found"
 

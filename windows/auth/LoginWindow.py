@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QLineEdit, QPushButton, QMessageBox
 from modules.auth import login
+from ..HomeWindow import HomePage
 
 class LoginPage(QWidget):
     def __init__(self, parent=None):
@@ -31,7 +32,13 @@ class LoginPage(QWidget):
         # Here you would implement your login logic
         result = login.login(username, password)
         if(result == "Success"):
-            self.parentClass.go_to_home_page()
+            self.parentClass.home_page = HomePage(username, self.parentClass)
+            self.parentClass.stacked_widget.addWidget(self.parentClass.home_page)
             self.parentClass.isLoggedIn = True
-        print(result)
-        QMessageBox.information(self, "Login", f"Logged in with\nUsername: {username}\nPassword: {password}")
+            self.parentClass.loggedInUser = username
+            QMessageBox.information(self, "Logged In", f"Logged in with\nUsername: {username}\nPassword: {password}")
+            print(self.parentClass.isLoggedIn)
+            self.parentClass.go_to_home_page()
+        else:
+            QMessageBox.critical(self, "Error", f"Error Encountered: {result}")
+        
