@@ -9,8 +9,11 @@ class LoginPage(QWidget):
 
         self.username_label = QLabel("Username:")
         self.username_input = QLineEdit()
+
         self.password_label = QLabel("Password:")
         self.password_input = QLineEdit()
+        self.password_input.setEchoMode(QLineEdit.Password)
+
         self.login_button = QPushButton("Login")
         self.back_button = QPushButton("Back")
 
@@ -41,4 +44,4 @@ class LoginPage(QWidget):
             self.parentClass.go_to_home_page()
         else:
             QMessageBox.critical(self, "Error", f"Error Encountered: {result}")
-        
+
