@@ -1,11 +1,11 @@
 mod encrypt;
+mod hash;
 
 use encrypt::{encrypt, decrypt};
 use std::fs::File;
 use std::io::{BufReader, Read};
 use pyo3::prelude::*;
 use blake3::Hasher;
-
 /// Formats the sum of two numbers as string.
 #[pyfunction]
 fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
@@ -14,10 +14,13 @@ fn sum_as_string(a: usize, b: usize) -> PyResult<String> {
 
 #[pyfunction]
 fn calculate_file_hash(_py: Python, filename: &str) -> PyResult<String> {
+    hash::calculate_time(filename);
+    
     let mut hasher = Hasher::new();
     let mut reader = BufReader::new(File::open(filename)?);
 
     let mut buf = [0; 4096];
+    
     loop {
         let bytes_read = reader.read(&mut buf)?;
         if bytes_read == 0 {

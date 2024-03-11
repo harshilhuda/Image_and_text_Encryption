@@ -34,6 +34,7 @@ pub fn encrypt(input_path: &str, output_path: &str, password: &str) -> String {
     let nonce = Aes256Gcm::generate_nonce(&mut OsRng); // 96-bits; unique per message
     
     let ciphertext = cipher.encrypt(GenericArray::from_slice(&nonce), buffer.as_slice()).unwrap();
+    
     output_file.write_all(&nonce).unwrap();
     output_file.write_all(&ciphertext).unwrap();
 
